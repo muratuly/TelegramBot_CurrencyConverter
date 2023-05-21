@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+  backend-springboot:
+    image: 'tgbot-backend'
+    container_name: docker-compose-spring-backend
+    depends_on: 
+      - docker-postgres
+    restart: always
+    environment: 
+      - SERVER_PORT=6666
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://docker-postgres:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=ahmet
+      - SPRING_DATASOURCE_PASSWORD=123456
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+    ports:
+      - 7777:6666
+
+  docker-postgres:
+    image: 'postgres'
+    container_name: docker-compose-postgres-db
+    restart: always
+    environment: 
+      - POSTGRES_USER=ahmet
+      - POSTGRES_PASSWORD=123456
+    ports:
+      - 9876:5432
